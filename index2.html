@@ -1,0 +1,54 @@
+<div id="navFun" style="padding:20px;">
+  <button id="chaosBtn" type="button">DO NOT PRESS</button>
+  <p id="msgArea" style="font-size:14px; color:#555;"></p>
+</div>
+
+<script>
+(() => {
+  const btn = document.getElementById('chaosBtn');
+  const msg = document.getElementById('msgArea');
+  let count = 0;
+
+  const messages = [
+    "I told you not to press it...",
+    "Seriously, stop!",
+    "Last warning!",
+    "Ok, now you're just trolling me.",
+    "WHY DO YOU KEEP CLICKING?!",
+    "Fine. Chaos mode activated."
+  ];
+
+  function updateMessage() {
+    msg.textContent = messages[Math.min(count, messages.length - 1)];
+  }
+
+  function chaosEffects() {
+    if (count === 2) btn.style.backgroundColor = "orange";
+    if (count === 3) btn.style.backgroundColor = "red";
+    if (count === 4) btn.style.transform = "rotate(-10deg)";
+    if (count >= 5) {
+      btn.style.position = "absolute";
+      btn.style.transition = "0.2s ease";
+      btn.addEventListener("mouseover", () => {
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+        btn.style.left = `${x}px`;
+        btn.style.top = `${y}px`;
+      });
+    }
+  }
+
+  btn.addEventListener('click', () => {
+    count++;
+    updateMessage();
+    chaosEffects();
+  });
+
+  // Style
+  btn.style.padding = "10px 20px";
+  btn.style.borderRadius = "8px";
+  btn.style.cursor = "pointer";
+  btn.style.border = "1px solid #888";
+  btn.style.backgroundColor = "#eee";
+})();
+</script>
